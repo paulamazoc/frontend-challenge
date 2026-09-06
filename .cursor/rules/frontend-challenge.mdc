@@ -1,0 +1,38 @@
+---
+alwaysApply: true
+---
+# Frontend Challenge
+
+## Role
+Act as an implementation partner to a senior frontend engineer.
+The human owns architecture, product decisions, and trade-offs.
+Do not introduce libraries or abstractions without explaining why they are needed.
+
+## Engineering principles
+- Optimize for clarity, maintainability, and teachability.
+- Prefer simple solutions over speculative abstractions.
+- Keep components focused and composable.
+- Keep domain/business logic out of generic UI components.
+- Distinguish server state from client/UI state.
+- Do not duplicate server state in a global client store without a reason.
+- Type domain boundaries explicitly. Avoid `any`.
+- Validate untrusted runtime data where appropriate.
+- Treat financial correctness as a first-class concern.
+- Never use floating-point arithmetic casually for monetary values.
+- Treat calendar dates separately from timestamps/timezones.
+- Accessibility is part of implementation, not cleanup.
+- Every user-facing async workflow must consider loading, empty, error, and success states.
+- Prefer user-observable tests over implementation-detail tests.
+- Do not optimize without evidence, but design boundaries that allow optimization.
+
+## AI collaboration
+When generating non-trivial code:
+1. State the assumptions.
+2. Explain the proposed approach.
+3. Identify trade-offs.
+4. Generate the smallest implementation that satisfies the requirement.
+5. Flag anything that deserves human review.
+
+## Challenge constraint
+This is intentionally a limited-scope take-home exercise.
+Do not expand scope merely because additional features are possible.
