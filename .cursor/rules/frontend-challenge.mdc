@@ -36,3 +36,12 @@ When generating non-trivial code:
 ## Challenge constraint
 This is intentionally a limited-scope take-home exercise.
 Do not expand scope merely because additional features are possible.
+
+## Project context
+Before proposing architectural or implementation changes:
+
+- Read `docs/ARCHITECTURE.md` for the current frontend architecture.
+- Read `docs/DECISIONS.md` for decisions and trade-offs already made.
+- Treat those files as the current source of truth.
+- Do not revisit settled decisions unless the current implementation reveals a concrete conflict.
+- Inspect the existing code before proposing new abstractions.
