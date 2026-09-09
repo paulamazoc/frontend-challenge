@@ -1,4 +1,19 @@
-import type { Account, Balance, CurrencyCode, CurrencyTotal, IsoDate } from './api-types';
+import type {
+  Account,
+  AccountType,
+  Balance,
+  CurrencyCode,
+  CurrencyTotal,
+  IsoDate,
+} from './api-types';
+
+export const ACCOUNT_TYPE_LABELS: Record<AccountType, string> = {
+  checking: 'Chequing',
+  savings: 'Savings',
+  credit_card: 'Credit card',
+  cash: 'Cash',
+  investment: 'Investment',
+};
 
 /**
  * `GET /api/accounts` does not paginate, so its `meta` is not the shared

@@ -1,18 +1,10 @@
 import { Box, Card, CardActionArea, Chip, Stack, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router';
-import type { AccountWithBalance } from '@/domain/accounts';
-import type { AccountType, IsoDate } from '@/domain/api-types';
+import { ACCOUNT_TYPE_LABELS, type AccountWithBalance } from '@/domain/accounts';
+import type { IsoDate } from '@/domain/api-types';
 import { formatCalendarDate } from '@/domain/date';
 import { formatMoney } from '@/domain/money';
 import { summarizeAccountBalance } from './accountBalanceSummary';
-
-const ACCOUNT_TYPE_LABELS: Record<AccountType, string> = {
-  checking: 'Chequing',
-  savings: 'Savings',
-  credit_card: 'Credit card',
-  cash: 'Cash',
-  investment: 'Investment',
-};
 
 interface AccountsListProps {
   accounts: AccountWithBalance[];
