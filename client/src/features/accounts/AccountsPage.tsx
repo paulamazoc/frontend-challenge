@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { isApiError } from '@/api/errors';
 import { EmptyState, ErrorState, LoadingState } from '@/components/ui/AsyncStates';
+import { AccountsList } from './AccountsList';
 import { accountsQueryOptions } from './queries';
 
 export function AccountsPage() {
@@ -38,7 +39,7 @@ function AccountsContent() {
     );
   }
 
-  const { data } = accounts.data;
+  const { data, meta } = accounts.data;
 
   if (data.length === 0) {
     return (
@@ -49,5 +50,5 @@ function AccountsContent() {
     );
   }
 
-  return <p>Accounts list goes here</p>;
+  return <AccountsList accounts={data} asOf={meta.asOf} />;
 }
