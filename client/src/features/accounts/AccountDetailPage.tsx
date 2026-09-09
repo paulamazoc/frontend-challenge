@@ -4,6 +4,7 @@ import { Link as RouterLink, Navigate, useParams } from 'react-router';
 import { isApiError } from '@/api/errors';
 import { EmptyState, ErrorState, LoadingState } from '@/components/ui/AsyncStates';
 import type { AccountWithBalance } from '@/domain/accounts';
+import { TransactionLedger } from '@/features/transactions/TransactionLedger';
 import { AccountSummary } from './AccountSummary';
 import { accountQueryOptions } from './queries';
 
@@ -78,6 +79,7 @@ function AccountDetailBody({ accountId, account }: AccountDetailBodyProps) {
   return (
     <>
       <AccountSummary account={account.data} />
+      <TransactionLedger accountId={account.data.id} currency={account.data.currency} />
     </>
   );
 }
