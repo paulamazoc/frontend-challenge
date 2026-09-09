@@ -52,7 +52,7 @@ function AccountCard({ account }: { account: AccountWithBalance }) {
     <Card component="li" variant="outlined">
       <CardActionArea
         component={RouterLink}
-        to={`/accounts`}
+        to={`/accounts/${account.id}`}
         aria-labelledby={nameId}
         sx={{ display: 'block', height: '100%', p: 2 }}
       >

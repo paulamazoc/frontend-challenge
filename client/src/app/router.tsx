@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { createBrowserRouter, Navigate } from 'react-router';
+import { AccountDetailPage } from '@/features/accounts/AccountDetailPage';
 import { AccountsPage } from '@/features/accounts/AccountsPage';
 import { AppShell } from './AppShell';
 
@@ -10,6 +11,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/accounts" replace /> },
       { path: 'accounts', element: <AccountsPage /> },
+      { path: 'accounts/:accountId', element: <AccountDetailPage /> },
       {
         path: '*',
         element: (
