@@ -13,7 +13,9 @@
     "dev:web": "npm run dev --workspace client",
     "start": "npm run start --workspace server",
     "build": "npm run build --workspace client",
-    "test": "npm run test --workspace server",
+    "test": "npm run test --workspace server && npm run test --workspace client",
+    "test:api": "npm run test --workspace server",
+    "test:web": "npm run test --workspace client",
     "reset": "curl -s -X POST http://localhost:4000/api/dev/reset -H 'Content-Type: application/json' -d '{}'"
   },
   "devDependencies": {
