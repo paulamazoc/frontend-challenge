@@ -32,9 +32,16 @@ src/
   features/
     accounts/
 
+    features/
+      accounts/
+      transactions/
+
 Additional feature folders are introduced only when their vertical slice is implemented.
 
-`features/transactions/` is expected to arrive with the transaction-ledger slice rather than existing as speculative structure.
+`features/transactions/` arrived with the transaction-ledger slice, as expected.
+The ledger is a transactions concern that the account screen composes:
+`TransactionLedger` takes an account id and a currency and knows nothing about
+balances.
 
 
 ## Domain rules
@@ -78,7 +85,9 @@ Two layers, deliberately separated:
   assumptions the UI relies on before returning a typed value.
 
 Queries retry once. Three retries with backoff left the user watching a spinner
-long after the request was already lost.
+long after the request was already lost. `GET /accounts/:id` opts out of the
+retry for 404 specifically: a URL pointing at an account that does not exist is
+an answer, not a transient failure.
 
 ### Domain contracts
 
@@ -105,3 +114,40 @@ the server's across a timezone boundary, and the server owns the ledger.
 The control itself is not built. When it is, it will be URL-backed
 (`/accounts?asOf=2026-08-31`), consistent with search params as navigational
 state, and one selected date will value every account.
+
+## Milestone 3: the account-detail ledger
+
+Adds the account-detail screen and the transaction ledger beneath it.
+
+### URL state has one boundary
+
+`features/transactions/ledgerSearchParams.ts` is the only place ledger
+navigation state crosses between the URL and typed values. Components read a
+`LedgerParams` and describe changes; nothing else parses a page number or
+decides what a missing value means.
+
+Parsing never throws and never produces a value the API would reject, because
+these URLs are shareable and hand-editable. `?page=-3&sort=ssn` renders page one
+by date rather than a 400 the user reads as a broken app.
+
+Serialising omits defaults, so an untouched ledger is `/accounts/acc_visa`
+rather than `/accounts/acc_visa?page=1&pageSize=25&sort=-date`.
+
+### Query keys
+
+`accounts/list`, `accounts/detail` and `transactions/list`. The transaction key
+carries every parameter that changes the answer — account, page, page size, sort
+and search — and nothing that does not: `include=category` is a constant of the
+request, not a variable.
+
+`accounts/detail` carries no `asOf`, because no caller can supply one yet and a
+key parameter for a query that does not exist is a key that will drift.
+
+### Server-driven table state
+
+Paging, sorting and searching are all server-side. The client never reorders or
+filters `data`, and never derives a balance from the rows on screen.
+
+`placeholderData: keepPreviousData` keeps the current page visible while the
+next one loads; the table dims and sets `aria-busy` rather than collapsing to a
+spinner on every interaction.
