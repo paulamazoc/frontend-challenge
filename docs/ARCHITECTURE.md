@@ -111,9 +111,13 @@ It is absent by default, which leaves the server's current balance as the source
 of truth. The client never computes "today": a client-side today disagrees with
 the server's across a timezone boundary, and the server owns the ledger.
 
-The control itself is not built. When it is, it will be URL-backed
-(`/accounts?asOf=2026-08-31`), consistent with search params as navigational
-state, and one selected date will value every account.
+The `/accounts` date control is URL-backed (`/accounts?asOf=2026-08-31`). One
+selected date values every account. Absence of `asOf` means current/latest
+server balances; invalid values fall back to that same default. `Today` removes
+the parameter rather than writing the client's calendar date.
+
+`features/accounts/accountsSearchParams.ts` is the only place that list
+navigation state crosses between the URL and typed values.
 
 ## Milestone 3: the account-detail ledger
 

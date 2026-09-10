@@ -74,7 +74,8 @@ Outflows remain visually neutral and inflows may use positive emphasis; color is
 
 **Why:** The endpoint already includes the balance, so a second request would duplicate data and introduce unnecessary loading/error states.
 
-Historical `asOf` behavior can be addressed separately when that workflow is implemented.
+List-level historical `asOf` is implemented on `/accounts`. Account detail
+still uses the current balance from `GET /api/accounts/:id`.
 
 ## 10. Ledger scope stays intentionally small
 
