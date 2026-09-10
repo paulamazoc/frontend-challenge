@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { formatCalendarDate } from './date';
+import { formatCalendarDate, isCalendarDate } from './date';
+
+describe('isCalendarDate', () => {
+  it('accepts a real calendar date', () => {
+    expect(isCalendarDate('2026-08-31')).toBe(true);
+  });
+
+  it('rejects a timestamp and a day that does not exist', () => {
+    expect(isCalendarDate('2026-06-14T18:22:05.114Z')).toBe(false);
+    expect(isCalendarDate('2026-02-30')).toBe(false);
+  });
+});
 
 describe('formatCalendarDate', () => {
   it('runs west of Greenwich, where date shifting would be visible', () => {

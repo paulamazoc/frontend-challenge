@@ -1,23 +1,47 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router';
 import { isApiError } from '@/api/errors';
 import { EmptyState, ErrorState, LoadingState } from '@/components/ui/AsyncStates';
+import type { IsoDate } from '@/domain/api-types';
 import { AccountsList } from './AccountsList';
+import { AsOfDateControl } from './AsOfDateControl';
+import { accountsParamsToSearch, parseAccountsParams } from './accountsSearchParams';
 import { accountsQueryOptions } from './queries';
 
 export function AccountsPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { asOf } = parseAccountsParams(searchParams);
+
+  const setAsOf = (next: IsoDate | undefined) => {
+    setSearchParams(accountsParamsToSearch({ asOf: next }), { replace: true });
+  };
+
   return (
     <>
-      <Typography variant="h5" component="h1" gutterBottom>
-        Accounts
-      </Typography>
-      <AccountsContent />
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        sx={{
+          alignItems: { sm: 'center' },
+          justifyContent: 'space-between',
+          mb: 2,
+        }}
+      >
+        <Typography variant="h5" component="h1">
+          Accounts
+        </Typography>
+
+        <AsOfDateControl value={asOf} onChange={setAsOf} />
+      </Stack>
+
+      <AccountsContent asOf={asOf} />
     </>
   );
 }
 
-function AccountsContent() {
-  const accounts = useQuery(accountsQueryOptions());
+function AccountsContent({ asOf }: { asOf?: IsoDate }) {
+  const accounts = useQuery(accountsQueryOptions(asOf !== undefined ? { asOf } : {}));
 
   if (accounts.isPending) {
     return <LoadingState label="Loading your accounts…" />;
