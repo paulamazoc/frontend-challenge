@@ -39,7 +39,6 @@ export function TransactionTable({
   return (
     <TableContainer component={Paper} variant="outlined" aria-busy={busy}>
       <Table
-        size="small"
         aria-labelledby={labelledBy}
         sx={{ opacity: busy ? 0.5 : 1, transition: 'opacity 150ms' }}
       >

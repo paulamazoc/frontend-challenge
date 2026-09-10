@@ -45,10 +45,7 @@ export function AccountSummary({ account }: { account: AccountWithBalance }) {
           <Typography
             variant="h4"
             component="p"
-            sx={{
-              color: summary.primaryAmount < 0 ? 'error.main' : 'text.primary',
-              fontVariantNumeric: 'tabular-nums',
-            }}
+            sx={{ color: summary.primaryAmount < 0 ? 'error.main' : 'text.primary' }}
           >
             {formatMoney(summary.primaryAmount, currency)}
           </Typography>
@@ -93,7 +90,7 @@ function BalanceFigure({ label, amount, currency }: BalanceFigureProps) {
       <Typography component="dt" variant="body2" color="text.secondary">
         {label}
       </Typography>
-      <Typography component="dd" variant="subtitle1" sx={{ m: 0, fontVariantNumeric: 'tabular-nums' }}>
+      <Typography component="dd" variant="subtitle1" sx={{ m: 0 }}>
         {formatMoney(amount, currency)}
       </Typography>
     </Box>

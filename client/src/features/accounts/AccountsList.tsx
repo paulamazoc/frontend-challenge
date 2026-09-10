@@ -41,7 +41,7 @@ function AccountCard({ account }: { account: AccountWithBalance }) {
   const nameId = `account-name-${account.id}`;
 
   return (
-    <Card component="li" variant="outlined">
+    <Card component="li">
       <CardActionArea
         component={RouterLink}
         to={`/accounts/${account.id}`}
@@ -49,19 +49,23 @@ function AccountCard({ account }: { account: AccountWithBalance }) {
         sx={{ display: 'block', height: '100%', p: 2 }}
       >
         <Stack spacing={1}>
-          <Box
-            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 1 }}
-          >
-            <Typography id={nameId} variant="subtitle1" component="h3">
-              {account.name}
-            </Typography>
-            <Chip label={currency} size="small" />
-          </Box>
-
-          <Typography variant="body2" color="text.secondary">
-            {ACCOUNT_TYPE_LABELS[account.type]}
-            {account.institution ? ` · ${account.institution}` : ''}
+          <Typography id={nameId} variant="subtitle1" component="h3">
+            {account.name}
           </Typography>
+
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ alignItems: 'center', flexWrap: 'wrap', rowGap: 1 }}
+          >
+            <Chip label={ACCOUNT_TYPE_LABELS[account.type]} size="small" />
+            <Chip label={currency} size="small" variant="outlined" />
+            {account.institution ? (
+              <Typography variant="body2" color="text.secondary">
+                {account.institution}
+              </Typography>
+            ) : null}
+          </Stack>
 
           <Box>
             <Typography variant="body2" color="text.secondary" component="p">
