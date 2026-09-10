@@ -10,23 +10,21 @@ export interface FetchAccountsParams {
   asOf?: IsoDate;
 }
 
-/**
- * `includeBalances=true` is already the endpoint's default, but it is stated
- * explicitly because the `AccountWithBalance` narrowing below depends on it. An
- * assumption the client relies on should be visible in the request, not
- * inherited silently from a server default that could change.
- */
-export async function fetchAccounts(
-  params: FetchAccountsParams = {},
-  signal?: AbortSignal,
-): Promise<AccountsResponse> {
+export function accountsSearchParams(params: FetchAccountsParams = {}): URLSearchParams {
   const query = new URLSearchParams({ includeBalances: 'true' });
 
   if (params.asOf !== undefined) {
     query.set('asOf', params.asOf);
   }
 
-  const body = await apiFetch(`/accounts?${query.toString()}`, { signal });
+  return query;
+}
+
+export async function fetchAccounts(
+  params: FetchAccountsParams = {},
+  signal?: AbortSignal,
+): Promise<AccountsResponse> {
+  const body = await apiFetch(`/accounts?${accountsSearchParams(params).toString()}`, { signal });
 
   assertAccountsResponse(body);
 
