@@ -50,8 +50,8 @@ function AccountDetailBody({ accountId, account }: AccountDetailBodyProps) {
         </Typography>
         <EmptyState
           title={`We couldn't find an account "${accountId}".`}
-          description={
-            <Button component={RouterLink} to="/accounts" variant="outlined" sx={{ mt: 2 }}>
+          action={
+            <Button component={RouterLink} to="/accounts" variant="outlined">
               Back to accounts
             </Button>
           }

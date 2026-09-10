@@ -43,13 +43,20 @@ export function ErrorState({ title, message, onRetry }: ErrorStateProps) {
   );
 }
 
-export function EmptyState({ title, description }: { title: string; description?: ReactNode }) {
+interface EmptyStateProps {
+  title: string;
+  description?: ReactNode;
+  action?: ReactNode;
+}
+
+export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
     <Paper variant="outlined" sx={{ p: 5, textAlign: 'center' }}>
       <Typography variant="subtitle1" gutterBottom>
         {title}
       </Typography>
       {description ? <Typography color="text.secondary">{description}</Typography> : null}
+      {action ? <Box sx={{ mt: 2 }}>{action}</Box> : null}
     </Paper>
   );
 }

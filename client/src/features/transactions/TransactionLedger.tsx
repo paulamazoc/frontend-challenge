@@ -182,15 +182,11 @@ function NoRows({
     return (
       <EmptyState
         title="No matching transactions"
-        description={
-          <>
-            Nothing on this account matches "{query}"". Try a another search.
-            <Box sx={{ mt: 2 }}>
-              <Button variant="outlined" size="small" onClick={onClearSearch}>
-                Clear search
-              </Button>
-            </Box>
-          </>
+        description={`Nothing on this account matches "${query}". Try another search.`}
+        action={
+          <Button variant="outlined" size="small" onClick={onClearSearch}>
+            Clear search
+          </Button>
         }
       />
     );
